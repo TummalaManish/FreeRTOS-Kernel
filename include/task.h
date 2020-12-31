@@ -83,6 +83,11 @@ typedef struct tskTaskControlBlock * TaskHandle_t;
  */
 typedef BaseType_t (* TaskHookFunction_t)( void * );
 
+/**
+ * Type time that holds the system time.
+ */
+typedef uint64_t TimeType_t;
+
 /* Task states returned by eTaskGetState. */
 typedef enum
 {
@@ -3044,6 +3049,19 @@ TaskHandle_t pvTaskIncrementMutexHeldCount( void ) PRIVILEGED_FUNCTION;
  */
 void vTaskInternalSetTimeOutState( TimeOut_t * const pxTimeOut ) PRIVILEGED_FUNCTION;
 
+/**
+ * @brief Call to this method will return time.
+ *
+ * @param[out] xpTimeToBeReturned pointer to the location when the valued has to returned.
+ */
+void vGetSystemTime (TimeType_t * xpTimeToBeReturned);
+
+/**
+ * @brief Call to this method will set the time.
+ *
+ * @param[in] xpTimeToBeSet pointer to the location that holds the to be set time.
+ */
+void vSetSystemTime (TimeType_t const * xpTimeToBeSet);
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
