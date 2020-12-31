@@ -78,6 +78,15 @@
  * within FreeRTOSConfig.h.
  */
 
+#ifndef configINITIAL_TIME_IN_MS
+    #define configINITIAL_TIME_IN_MS 0
+#endif
+
+#if ( configTICK_RATE_HZ != 1000)
+   #define configTICK_RATE_HZ = 1000
+   #warning configTICK_RATE_HZ in freeRTOSConfig.h must be 1000 else system time calculations will fail.
+#endif
+
 #ifndef configMINIMAL_STACK_SIZE
     #error Missing definition:  configMINIMAL_STACK_SIZE must be defined in FreeRTOSConfig.h.  configMINIMAL_STACK_SIZE defines the size (in words) of the stack allocated to the idle task.  Refer to the demo project provided for your port for a suitable value.
 #endif

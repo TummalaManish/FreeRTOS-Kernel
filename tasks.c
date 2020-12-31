@@ -368,6 +368,7 @@ PRIVILEGED_DATA static List_t xPendingReadyList;                         /*< Tas
 #endif
 
 /* Other file private variables. --------------------------------*/
+volatile TickType_t uxTime64 = (TickType_t) configINITIAL_TIME_IN_MS;
 PRIVILEGED_DATA static volatile UBaseType_t uxCurrentNumberOfTasks = ( UBaseType_t ) 0U;
 PRIVILEGED_DATA static volatile TickType_t xTickCount = ( TickType_t ) configINITIAL_TICK_COUNT;
 PRIVILEGED_DATA static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
@@ -2738,10 +2739,12 @@ BaseType_t xTaskIncrementTick( void )
         /* Minor optimisation.  The tick count cannot change in this
          * block. */
         const TickType_t xConstTickCount = xTickCount + ( TickType_t ) 1;
+        const TimeType_t xTime64Const = uxTime64 + (TimeType_t) 1;
 
         /* Increment the RTOS tick, switching the delayed and overflowed
          * delayed lists if it wraps to 0. */
         xTickCount = xConstTickCount;
+        uxTime64 = xTime64Const;
 
         if( xConstTickCount == ( TickType_t ) 0U ) /*lint !e774 'if' does not always evaluate to false as it is looking for an overflow. */
         {
@@ -5370,6 +5373,18 @@ static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait,
             ( void ) xCanBlockIndefinitely;
         }
     #endif /* INCLUDE_vTaskSuspend */
+}
+
+void vGetSystemTime(TimeType_t * const xpTimeToBeReturned) {
+  taskENTER_CRITICAL();
+  *xpTimeToBeReturned = uxTime64;
+  taskEXIT_CRITICAL();
+}
+
+void vSetSystemTime(TimeType_t const * const xpTimeToBeSet) {
+  taskENTER_CRITICAL();
+  uxTime64 = *xpTimeToBeSet;
+  taskEXIT_CRITICAL();
 }
 
 /* Code below here allows additional code to be inserted into this source file,
