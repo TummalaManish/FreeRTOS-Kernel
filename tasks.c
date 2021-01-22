@@ -368,7 +368,7 @@ PRIVILEGED_DATA static List_t xPendingReadyList;                         /*< Tas
 #endif
 
 /* Other file private variables. --------------------------------*/
-volatile TickType_t uxTime64 = (TickType_t) configINITIAL_TIME_IN_MS;
+volatile TimeType_t uxTime64 = (TickType_t) configINITIAL_TIME_IN_MS;
 PRIVILEGED_DATA static volatile UBaseType_t uxCurrentNumberOfTasks = ( UBaseType_t ) 0U;
 PRIVILEGED_DATA static volatile TickType_t xTickCount = ( TickType_t ) configINITIAL_TICK_COUNT;
 PRIVILEGED_DATA static volatile UBaseType_t uxTopReadyPriority = tskIDLE_PRIORITY;
