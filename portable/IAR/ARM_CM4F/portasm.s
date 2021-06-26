@@ -25,7 +25,7 @@
  * 1 tab == 4 spaces!
  */
 
-#include <FreeRTOSConfig.h>
+; #include <FreeRTOSConfig.h>
 
 	RSEG    CODE:CODE(2)
 	thumb
@@ -60,7 +60,7 @@ xPortPendSVHandler:
 	str r0, [r2]
 
 	stmdb sp!, {r0, r3}
-	mov r0, #configMAX_SYSCALL_INTERRUPT_PRIORITY
+	mov r0, #191
 	msr basepri, r0
 	dsb
 	isb
