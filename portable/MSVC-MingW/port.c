@@ -696,4 +696,5 @@ int32_t lMutexNeedsReleasing;
 	}
 }
 /*-----------------------------------------------------------*/
-
+BaseType_t xPortIsInsideInterrupt(void) { return xInsideInterrupt; }
+/*-----------------------------------------------------------*/

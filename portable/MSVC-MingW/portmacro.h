@@ -158,5 +158,11 @@ void vPortGenerateSimulatedInterrupt( uint32_t ulInterruptNumber );
  */
 void vPortSetInterruptHandler( uint32_t ulInterruptNumber, uint32_t (*pvHandler)( void ) );
 
+/**
+ * @breif Determines if currently the system is in interrupt.
+ * @return pdTRUE if in interrupt else pdFALSE.
+ */
+BaseType_t xPortIsInsideInterrupt(void);
+
 #endif
 
